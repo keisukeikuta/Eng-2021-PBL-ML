@@ -17,6 +17,7 @@ GPIO.setup(SOUND_PORT, GPIO.OUT)
 
 pwm = GPIO.PWM(SOUND_PORT, TONE)
 
+#長押し、短押しの設定
 while True: 
     try: 
         if GPIO.input(SWITCH_PORT) == GPIO.HIGH: 
