@@ -1,1 +1,7 @@
-
+from gpiozero import TonalBuzzer
+piezo = TonalBuzzer(13)
+from time import sleep
+def playTone(pitch): 
+piezo.play(pitch)
+sleep(1)
+piezo.stop()
