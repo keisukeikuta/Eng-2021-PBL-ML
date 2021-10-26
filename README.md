@@ -8,30 +8,34 @@ from time import sleep
 #ピンと音、スイッチの設定
 SOUND_PORT = 18 
 SWITCH_PORT = 21 
+TONE = 1000
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(SWITCH_PORT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(SOUND_PORT, GPIO.OUT) 
 
-pwm = GPIO.PWM(SOUND_PORT, 200)
+pwm = GPIO.PWM(SOUND_PORT, TONE)
+sw_counter = 0
 
 #長押し、短押しの設定
 while True: 
 　 GPIO.wait_for_edge(SWITCH_PORT, GPIO.FALLING)
-  
-  sw_counter = 0
-  
-  while True:
-        sw_status = GPIO.input(SWITCH_PORT)
-        if GPIO.input(SWITCH_PORT) == GPIO.HIGH: 
-        if sw_status == 0:
-            sw_counter = sw_counter + 1
-            
-             pwm.ChangeFrequency(200)
+   sw_status = GPIO.input(SWITCH_PORT)
+   if sw_status = 0
+       pwm.ChangeFrequency(TONE)
+       pwm.start(50) 
+       print ("test")
+       if sw_status == 0:
+          sw_counter = sw_counter + 1
+          if sw_counter >= 50
+              pwm.ChangeFrequency(TONE)
+              pwm.start(50) 
+              print("長押し検知")
+              sw_counter = 0
+              break
+        else:
+            pwm.ChangeFrequency(400)
             pwm.start(50) 
-        else: print("OFF")
-            pwm.stop() 
-            time.sleep(0.1) 
-    except KeyboardInterrupt: 
-        break 
+            print("短押し検知")
+            break
 GPIO.cleanup()
